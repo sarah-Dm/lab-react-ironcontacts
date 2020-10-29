@@ -48,6 +48,13 @@ class Contacts extends Component {
     contacts: json.slice(0, 5),
     fullContact: json,
   };
+
+  clickToDelete = (id) => {
+    const contactsCopy = [...this.state.contacts];
+    const contactsIndex = contactsCopy.findIndex((item) => item.id === id);
+    contactsCopy.splice(contactsIndex, 1);
+    this.setState({ contacts: contactsCopy });
+  };
   render() {
     return (
       <div className="App">
@@ -128,6 +135,12 @@ class Contacts extends Component {
                   </td>
                   <td>{contact.name}</td>
                   <td>{contact.popularity}</td>
+                  <td>
+                    {/* //tout dans le meme component, donc pas besoin de props  */}
+                    <button onClick={() => this.clickToDelete(contact.id)}>
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               );
             })}
